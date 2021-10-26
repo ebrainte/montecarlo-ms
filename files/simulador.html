@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+  	<title>Simulador - Montecarlo</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./main.css">
+
+	<script src="https://cdn.plot.ly/plotly-1.35.2.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-animate.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-aria.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-messages.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.js"></script>
+	<script src="https://unpkg.com/mathjs@5.10.3/dist/math.min.js"></script>
+	<script src="./main.js"></script>
+</head>
+
+<body ng-app="Montecarlo" ng-cloak>
+	<style>
+		html {
+			background-color: rgba(152, 180, 212, 0.3);
+		}
+	</style>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<div class="container">
+			<a class="navbar-brand" href="#">Modelado y Simulación - Montecarlo</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="navbar-toggler-icon"></span>
+			</button>
+		  
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			  <ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+				  <a class="nav-link" href="./index.html">Guía</a>
+				</li>
+				<li class="nav-item active ml-4">
+				  <a class="nav-link" href="#">Simulador <span class="sr-only">(current)</span></a>
+				</li>
+			  </ul>
+			</div>
+		</div>
+	</nav>	
+
+	<div ng-controller="MontecarloCtrl">
+		<div class="inputs py-5">
+			<div class="container">
+				<div class="card mx-auto" style="max-width: 768px;">
+					<div class="card-header bg-primary">
+						<h4 class="m-0 text-white">Simulador</h4>
+					</div>
+					<div class="card-body">
+						<form>
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label class="sr-only" for="input1">F(x)</label>
+									<div class="input-group mb-2">
+										<div class="input-group-prepend">
+											<div class="input-group-text">F(x)</div>
+										</div>
+										<input 
+											type="text"
+											class="form-control"
+											aria-describedby="input1"
+											ng-model="fx">
+									</div>
+								</div>
+								<div class="form-group col-md-6">
+									<label class="sr-only" for="input2">n</label>
+									<div class="input-group mb-2">
+										<div class="input-group-prepend">
+											<div class="input-group-text">n</div>
+										</div>
+										<input 
+											type="text"
+											class="form-control"
+											aria-describedby="input2"
+											ng-model="n">
+									</div>
+								</div>
+							</div>
+							
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label class="sr-only" for="input3">a</label>
+									<div class="input-group mb-2">
+										<div class="input-group-prepend">
+											<div class="input-group-text">a</div>
+										</div>
+										<input 
+											type="text"
+											class="form-control"
+											aria-describedby="input3"
+											ng-model="xMin">
+									</div>
+								</div>
+								<div class="form-group col-md-6">
+									<label class="sr-only" for="input4">b</label>
+									<div class="input-group mb-2">
+										<div class="input-group-prepend">
+											<div class="input-group-text">b</div>
+										</div>
+										<input 
+											type="text"
+											class="form-control"
+											aria-describedby="input4"
+											ng-model="xMax">
+									</div>
+								</div>
+							</div>
+		
+							<button
+								type="button"
+								class="btn btn-primary d-block mx-auto"
+								ng-click="getArea()">
+								Calcular
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="results py-5">
+			<div class="container pb-5">
+				<div 
+					class="row">
+					<div class="col-12">
+						<div 
+							id="area-container"
+							class="card d-none">
+							<div class="card-header bg-success">
+								<h4 class="m-0 text-white">Resultados</h4>
+							</div>
+
+							<div class="card-body d-flex justify-content-center">
+								<button type="button" class="btn btn-info center-block">
+									Puntos generados = <span class="badge badge-light">{{puntosGenerados}}</span>
+								</button>
+				
+								<button type="button" class="btn btn-info center-block ml-4">
+									Area aproximada = <span class="badge badge-light">{{currentArea}}</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row mt-4">
+					<div class="col-12">
+						<div id="PlotFx"></div>
+					</div>
+				</div>
+				<div class="row mt-4">
+					<div class="col-12">
+						<div id="PlotArea"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

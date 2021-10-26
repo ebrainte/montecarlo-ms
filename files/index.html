@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+  	<title>Guía - Montecarlo</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./main.css">
+
+	<script src="https://cdn.plot.ly/plotly-1.35.2.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-animate.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-aria.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-messages.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.js"></script>
+	<script src="https://unpkg.com/mathjs@5.10.3/dist/math.min.js"></script>
+	<script src="./main.js"></script>
+</head>
+
+<body ng-app="Montecarlo" ng-cloak>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">Montecarlo</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">Guía <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item ml-4">
+                  <a class="nav-link" href="./simulador.html">Simulador</a>
+                </li>
+              </ul>
+            </div>
+        </div>
+    </nav>
+
+	<div class="container py-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-primary d-flex justify-content-between">
+                        <h2 class="text-white m-0">Modelado y Simulación - TPO Montecarlo</h2>
+                        <a 
+                            href="./simulador.html"
+                            class="btn btn-success center-block">
+                            Usar Simulador
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h4>Año: 2021</h4>
+                        <h4>Clase: miércoles noche</h4>
+                        <h4>Alumnos</h3>
+                        <ul>
+                            <li>
+                                <h5>Ariel Sandor</h5>
+                            </li>
+                            <li>
+                                <h5>Damian Marino</h5>
+                            </li>
+                            <li>
+                                <h5>Tomas Causa</h5>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5 pb-5">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-info">
+                        <h2 class="text-white m-0">Preguntas</h2>
+                    </div>
+                    <div class="card-body">
+                        <h2>¿Qué es el método Montecarlo?</h2>
+                        <p>
+                            El método Montecarlo es un método estadístico, de bajo coste, que sirve para resolver problemas matematicos complejos a traves de la generacion de las "variables aleatorias".<br>
+
+                        </p>
+                        <h2>¿Cuales son los pasos para calcularlo?</h2>
+                        <p>
+                            Se calculan los máximos y mínimos de la funcion. <br>
+                            Con esos valores, y los valores de los límites izquierdo y derecho, se genera un espacio rectangular, en la que nos es fácil calcular su área. <br>
+                            Luego se arma un "generador de lluvia", es decir, un generador de puntos aleatorios en los ejes X e Y, que estén dentro de los límites del rectangulo generado anteriormente. <br>
+                            Se cuenta la cantidad de puntos generados en total. Se cuenta la cantidad de puntos que se encuentran dentro de la curva (arriba y abajo del eje Y). <br>
+                            Se toman entonces: (((Cantidad de puntos adentro de la curva sobre el eje Y) - (Cantidad de puntos adentro de la curva debajo del eje Y)) / Cantidad total de puntos) * Área del rectángulo
+                        </p>
+                        <h2>¿Como lo implementamos nosotros?</h2>
+                        <p>
+                            Utilizando AngularJS, una librería graficadora (Plotly), y una librería matemática (math) desarrollamos las siguientes funciones:<br>
+                            inicializarVariables<br>
+                            obtenerPuntoAleatorio<br>
+                            obtenerRectangulo<br>
+                            estaEnFuncion<br>
+                            actualizarGraficoFx<br>
+                            calcularArea<br>
+                            actualizarGraficoAreaVsN<br>
+                            integral<br>
+                            graficarFx<br>
+                            <br>
+                            Luego de la inicializacion de todas las variables, llamamos a graficarFx, que se dedica a generar el grafico inicial de la curva.<br>
+                            Luego, de forma iterativa, hasta llegar al valor máximo de puntos puesto por nosotros, se realizará lo siguiente:<br>
+                            Generar puntos aleatorios (funcion obtenerPuntoAleatorio)<br>
+                            Verificar si ese punto pertenece al interior de la curva , y si esta por encima o debajo del eje Y (funcion estaEnFuncion)<br>
+                            Grafico el punto generado (función actualizarGraficoFx)<br>
+                            Calculo el area provisoria (funciona calcularArea)<br>
+                            Agrego un valor en el grafico de Valor del Área vs Cantidad de puntos (funcion actualizarGraficoAreaVsN)<br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+</body>
+
+</html>
