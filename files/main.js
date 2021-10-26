@@ -223,7 +223,7 @@ app.controller('MontecarloCtrl', function ($scope, $window) {
 
     $scope.reset();
 
-    $scope.fx = '1-x';
+    $scope.fx = '2-x^2';
     $scope.xMin = 0;
     $scope.xMax = 2;
     $scope.n = 100;
